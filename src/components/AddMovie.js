@@ -1,7 +1,17 @@
 import React from 'react';
+import serialize from 'form-serialize';
 
-class AddItem extends React.Component {
+class AddMovie extends React.Component {
 
+    // form verisini event olarak alıp serialize ederek json formatına çeviriyoruz. 
+    // onu da props ile movies dizisine eklemek üzere, AddMovies in çağırıldığı yere yani App.js'e gönderiyoruz.
+
+    handleFormSubmit = (e) => {
+        e.preventDefault();
+        const newMovie = serialize(e.target, { hash: true });
+        console.log(newMovie);
+        this.props.onAddMovie(newMovie);
+    }
 
     render(){
         return(
@@ -40,13 +50,13 @@ class AddItem extends React.Component {
                                 name="overview" rows="5"></textarea>
                     </div>
                 </div>
-                <input type="submit" className="btn btn-danger btn-block" value="Add Movie" />
+                <input type="submit" className="btn btn-success mt-3 btn-block" value="Add Movie" />
             </form>
         </div>
-        
+
         )
     }
 
 }
 
-export default AddItem;
+export default AddMovie;
